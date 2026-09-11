@@ -1,0 +1,242 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================
+   FASHION KAT — SISTEMA DE DISEÑO
+   NEGRO PRINCIPAL · ROSA DE ACENTO · BLANCO Y GRIS DE APOYO
+   ========================================================== */
+
+:root {
+  --fk-ink: #0a0a0a;
+  --fk-rose: #f0508c;
+  --fk-smoke: #f4f4f5;
+  --header-height: 118px;
+
+  /* TIPOGRAFÍA — SIN DEPENDENCIAS EXTERNAS PARA QUE EL PROYECTO
+     COMPILE Y SE VEA IGUAL AUNQUE NO HAYA CONEXIÓN A INTERNET.
+     SI QUIERES UNA FUENTE PERSONALIZADA, CÁMBIALA AQUÍ. */
+  --font-sans: 'Inter', 'Helvetica Neue', Helvetica, Arial, system-ui, -apple-system,
+    'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+}
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-ink-900 antialiased;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+
+  /* TODO EL TEXTO DE LA INTERFAZ VA EN MAYÚSCULAS */
+  body,
+  button,
+  input,
+  select,
+  textarea {
+    text-transform: uppercase;
+  }
+
+  /* EXCEPCIONES: LOS DATOS QUE EL USUARIO ESCRIBE NO SE FUERZAN */
+  input[type='email'],
+  input[type='password'],
+  input[type='url'] {
+    text-transform: none;
+  }
+
+  ::selection {
+    background: var(--fk-rose);
+    color: #fff;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f4f4f5;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #d4d4d8;
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--fk-rose);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--fk-rose);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .container-fk {
+    @apply mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-10;
+  }
+
+  .eyebrow {
+    @apply text-[10px] font-semibold tracking-brand text-rose-500;
+  }
+
+  .heading-xl {
+    @apply text-3xl font-light tracking-wider2 sm:text-4xl lg:text-5xl;
+  }
+
+  .heading-lg {
+    @apply text-2xl font-light tracking-wider2 sm:text-3xl;
+  }
+
+  .heading-md {
+    @apply text-lg font-medium tracking-wider2 sm:text-xl;
+  }
+
+  .label-xs {
+    @apply text-[10px] font-semibold tracking-brand text-smoke-600;
+  }
+
+  /* BOTONES */
+  .btn {
+    @apply inline-flex select-none items-center justify-center gap-2 whitespace-nowrap
+           text-[11px] font-semibold tracking-brand transition-all duration-200
+           disabled:pointer-events-none disabled:opacity-40;
+  }
+
+  .btn-primary {
+    @apply btn bg-rose-500 px-7 py-3.5 text-white hover:bg-rose-600 active:scale-[0.98] shadow-rose;
+  }
+
+  .btn-dark {
+    @apply btn bg-ink-950 px-7 py-3.5 text-white hover:bg-ink-800 active:scale-[0.98];
+  }
+
+  .btn-outline {
+    @apply btn border border-ink-950 px-7 py-3.5 text-ink-950 hover:bg-ink-950 hover:text-white active:scale-[0.98];
+  }
+
+  .btn-outline-light {
+    @apply btn border border-white/70 px-7 py-3.5 text-white hover:bg-white hover:text-ink-950;
+  }
+
+  .btn-ghost {
+    @apply btn border border-smoke-300 bg-white px-5 py-2.5 text-ink-700 hover:border-ink-950 hover:text-ink-950;
+  }
+
+  .btn-sm {
+    @apply px-4 py-2 text-[10px];
+  }
+
+  /* FORMULARIOS */
+  .field {
+    @apply w-full border border-smoke-300 bg-white px-4 py-3 text-[12px] tracking-wide
+           text-ink-900 transition-colors placeholder:text-smoke-500
+           focus:border-rose-500 focus:outline-none;
+  }
+
+  .field-error {
+    @apply border-red-400 focus:border-red-500;
+  }
+
+  .form-label {
+    @apply mb-2 block text-[10px] font-semibold tracking-brand text-ink-700;
+  }
+
+  .form-hint {
+    @apply mt-1.5 text-[10px] tracking-wide text-red-600;
+  }
+
+  /* TARJETAS Y SUPERFICIES */
+  .surface {
+    @apply border border-smoke-300 bg-white;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-lift;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-1 text-[9px] font-bold tracking-brand;
+  }
+
+  .badge-rose {
+    @apply badge bg-rose-500 text-white;
+  }
+
+  .badge-dark {
+    @apply badge bg-ink-950 text-white;
+  }
+
+  .badge-light {
+    @apply badge bg-white text-ink-950;
+  }
+
+  .divider {
+    @apply h-px w-full bg-smoke-300;
+  }
+
+  /* ENLACE CON SUBRAYADO ANIMADO */
+  .link-underline {
+    @apply relative inline-block after:absolute after:bottom-0 after:left-0 after:h-px
+           after:w-0 after:bg-rose-500 after:transition-all after:duration-300 hover:after:w-full;
+  }
+
+  /* SKELETON DE CARGA */
+  .skeleton {
+    @apply relative overflow-hidden bg-smoke-200;
+  }
+  .skeleton::after {
+    @apply absolute inset-0 -translate-x-full;
+    content: '';
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0,
+      rgba(255, 255, 255, 0.55) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    animation: shimmer 1.6s infinite;
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  /* TABLAS DEL PANEL ADMINISTRATIVO */
+  .admin-table {
+    @apply w-full border-collapse text-[11px] tracking-wide;
+  }
+  .admin-table thead th {
+    @apply border-b border-smoke-300 bg-smoke-100 px-4 py-3 text-left text-[10px]
+           font-semibold tracking-brand text-smoke-700;
+  }
+  .admin-table tbody td {
+    @apply border-b border-smoke-200 px-4 py-3 align-middle;
+  }
+  .admin-table tbody tr:hover {
+    @apply bg-rose-50/40;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .normal-case-force {
+    text-transform: none !important;
+  }
+}

@@ -1,0 +1,691 @@
+// ==========================================================
+// DATOS DE DEMOSTRACIÓN DE FASHION KAT
+// TODAS LAS IMÁGENES SON FOTOGRAFÍA DE MODA DE UNSPLASH.
+// SI UNA IMAGEN NO CARGA, LA INTERFAZ MUESTRA UN RESPALDO DE MARCA.
+// ==========================================================
+
+const U = (id: string) =>
+  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=80`;
+
+export type SeedCategory = {
+  name: string;
+  slug: string;
+  description: string;
+  image: string;
+};
+
+export const CATEGORIES: SeedCategory[] = [
+  {
+    name: 'VESTIDOS',
+    slug: 'vestidos',
+    description: 'VESTIDOS CORTOS, LARGOS Y DE FIESTA PARA CADA MOMENTO.',
+    image: U('photo-1595777457583-95e059d581b8'),
+  },
+  {
+    name: 'BLUSAS',
+    slug: 'blusas',
+    description: 'BLUSAS Y CAMISAS QUE COMBINAN CON TODO TU CLÓSET.',
+    image: U('photo-1564584217132-2271feaeb3c5'),
+  },
+  {
+    name: 'PANTALONES',
+    slug: 'pantalones',
+    description: 'JEANS, PALAZZOS Y PANTALONES DE VESTIR DE ALTA CALIDAD.',
+    image: U('photo-1541099649105-f69ad21f3246'),
+  },
+  {
+    name: 'CHAQUETAS',
+    slug: 'chaquetas',
+    description: 'CHAQUETAS Y ABRIGOS PARA ELEVAR CUALQUIER LOOK.',
+    image: U('photo-1551028719-00167b16eac5'),
+  },
+  {
+    name: 'CONJUNTOS',
+    slug: 'conjuntos',
+    description: 'CONJUNTOS COORDINADOS LISTOS PARA USAR.',
+    image: U('photo-1487222477894-8943e31ef7b2'),
+  },
+  {
+    name: 'FALDAS',
+    slug: 'faldas',
+    description: 'FALDAS MIDI, CORTAS Y PLISADAS CON CAÍDA PERFECTA.',
+    image: U('photo-1583496661160-fb5886a0aaaa'),
+  },
+  {
+    name: 'ZAPATOS',
+    slug: 'zapatos',
+    description: 'TACONES, BOTAS Y TENIS PARA TODOS TUS PLANES.',
+    image: U('photo-1543163521-1bf539c55dd2'),
+  },
+  {
+    name: 'BOLSOS',
+    slug: 'bolsos',
+    description: 'BOLSOS, CARTERAS Y MOCHILAS DE DISEÑO.',
+    image: U('photo-1584917865442-de89df76afd3'),
+  },
+  {
+    name: 'ACCESORIOS',
+    slug: 'accesorios',
+    description: 'JOYERÍA, GAFAS Y DETALLES QUE MARCAN LA DIFERENCIA.',
+    image: U('photo-1611085583191-a3b181a88401'),
+  },
+  {
+    name: 'DEPORTIVO',
+    slug: 'deportivo',
+    description: 'ROPA DEPORTIVA CÓMODA CON ESTILO FASHION KAT.',
+    image: U('photo-1518310383802-640c2de311b2'),
+  },
+];
+
+export type SeedProduct = {
+  sku: string;
+  name: string;
+  category: string;
+  subcategory: string;
+  shortDescription: string;
+  description: string;
+  price: number;
+  comparePrice?: number;
+  images: string[];
+  tags: string[];
+  sizeKind: 'ROPA' | 'CALZADO' | 'UNICA';
+  colors: string[];
+  stockPerVariant: number;
+  featured?: boolean;
+  isNew?: boolean;
+  onSale?: boolean;
+  sold: number;
+  rating: number;
+};
+
+const P = (
+  sku: string,
+  name: string,
+  category: string,
+  subcategory: string,
+  shortDescription: string,
+  description: string,
+  price: number,
+  comparePrice: number | undefined,
+  images: string[],
+  tags: string[],
+  sizeKind: 'ROPA' | 'CALZADO' | 'UNICA',
+  colors: string[],
+  stockPerVariant: number,
+  flags: { featured?: boolean; isNew?: boolean; onSale?: boolean },
+  sold: number,
+  rating: number
+): SeedProduct => ({
+  sku,
+  name,
+  category,
+  subcategory,
+  shortDescription,
+  description,
+  price,
+  comparePrice,
+  images: images.map(U),
+  tags,
+  sizeKind,
+  colors,
+  stockPerVariant,
+  featured: flags.featured,
+  isNew: flags.isNew,
+  onSale: flags.onSale,
+  sold,
+  rating,
+});
+
+export const PRODUCTS: SeedProduct[] = [
+  // ---------------- VESTIDOS ----------------
+  P('FK-VES-001', 'VESTIDO NEGRO SATINADO MIDI', 'VESTIDOS', 'MIDI',
+    'VESTIDO MIDI EN SATÍN CON CAÍDA FLUIDA Y TIRANTES AJUSTABLES.',
+    'VESTIDO MIDI CONFECCIONADO EN SATÍN DE ALTA DENSIDAD CON FORRO INTERIOR. SU CORTE AL BIES ESTILIZA LA SILUETA Y LOS TIRANTES AJUSTABLES PERMITEN ADAPTARLO A TU MEDIDA. IDEAL PARA CENAS, EVENTOS Y CELEBRACIONES. COMBINA CON TACÓN NEGRO Y BOLSO PEQUEÑO PARA UN LOOK IMPECABLE.',
+    189000, 239000,
+    ['photo-1595777457583-95e059d581b8', 'photo-1566174053879-31528523f8ae', 'photo-1515372039744-b8f02a3ae446'],
+    ['VESTIDO', 'NEGRO', 'SATÍN', 'ELEGANTE', 'FIESTA'],
+    'ROPA', ['NEGRO', 'VINOTINTO'], 14, { featured: true, onSale: true }, 132, 4.8),
+
+  P('FK-VES-002', 'VESTIDO ROSA DE GASA FLORAL', 'VESTIDOS', 'CORTO',
+    'VESTIDO CORTO EN GASA CON ESTAMPADO FLORAL Y MANGA ABULLONADA.',
+    'VESTIDO CORTO EN GASA LIVIANA CON ESTAMPADO FLORAL EXCLUSIVO DE FASHION KAT. MANGA ABULLONADA, ESCOTE EN V Y CINTURA ENTALLADA CON LAZO POSTERIOR. PERFECTO PARA BRUNCH, GRADOS Y PLANES DE DÍA.',
+    159000, undefined,
+    ['photo-1572804013309-59a88b7e92f1', 'photo-1508243529287-e21914733111'],
+    ['VESTIDO', 'ROSA', 'FLORAL', 'GASA', 'VERANO'],
+    'ROPA', ['ROSA', 'BLANCO'], 12, { featured: true, isNew: true }, 88, 4.6),
+
+  P('FK-VES-003', 'VESTIDO LARGO ELEGANTE CON ABERTURA', 'VESTIDOS', 'LARGO',
+    'VESTIDO LARGO CON ABERTURA LATERAL Y ESPALDA DESCUBIERTA.',
+    'VESTIDO LARGO DE FIESTA EN CREPÉ ELÁSTICO CON ABERTURA LATERAL Y ESPALDA DESCUBIERTA CON TIRAS CRUZADAS. INCLUYE COPAS INTERNAS PARA MEJOR SOPORTE. UNA PIEZA PENSADA PARA MATRIMONIOS Y GALAS.',
+    289000, 349000,
+    ['photo-1485968579580-b6d095142e6e', 'photo-1479064555552-3ef4979f8908'],
+    ['VESTIDO', 'LARGO', 'GALA', 'ELEGANTE'],
+    'ROPA', ['NEGRO', 'VINOTINTO', 'ROSA'], 8, { featured: true, onSale: true }, 64, 4.9),
+
+  P('FK-VES-004', 'VESTIDO CAMISERO BLANCO', 'VESTIDOS', 'CAMISERO',
+    'VESTIDO CAMISERO EN ALGODÓN CON CINTURÓN DEL MISMO TEJIDO.',
+    'VESTIDO CAMISERO EN ALGODÓN POPELINA CON BOTONES FRONTALES, BOLSILLOS LATERALES Y CINTURÓN REMOVIBLE. UNA PRENDA VERSÁTIL QUE FUNCIONA EN LA OFICINA Y EN PLANES INFORMALES.',
+    139000, undefined,
+    ['photo-1496747611176-843222e1e57c', 'photo-1490481651871-ab68de25d43d'],
+    ['VESTIDO', 'BLANCO', 'CAMISERO', 'ALGODÓN', 'OFICINA'],
+    'ROPA', ['BLANCO', 'BEIGE'], 15, { isNew: true }, 41, 4.4),
+
+  P('FK-VES-005', 'VESTIDO TEJIDO CANALÉ GRIS', 'VESTIDOS', 'CEÑIDO',
+    'VESTIDO CEÑIDO EN TEJIDO CANALÉ CON MANGA LARGA.',
+    'VESTIDO CEÑIDO EN PUNTO CANALÉ DE ALTA ELASTICIDAD. MANGA LARGA, CUELLO ALTO Y LARGO MIDI. UNA PRENDA CÓMODA QUE SE AJUSTA A LA FIGURA SIN PERDER MOVILIDAD.',
+    129000, 169000,
+    ['photo-1539109136881-3be0616acf4b', 'photo-1524504388940-b1c1722653e1'],
+    ['VESTIDO', 'GRIS', 'CANALÉ', 'BÁSICO'],
+    'ROPA', ['GRIS', 'NEGRO', 'BEIGE'], 10, { onSale: true }, 57, 4.3),
+
+  // ---------------- BLUSAS ----------------
+  P('FK-BLU-001', 'BLUSA BLANCA DE SEDA', 'BLUSAS', 'MANGA LARGA',
+    'BLUSA EN SEDA LAVABLE CON CAÍDA FLUIDA Y PUÑOS ABOTONADOS.',
+    'BLUSA EN SEDA LAVABLE CON ACABADO MATE, CUELLO CAMISERO Y PUÑOS ABOTONADOS. LA PRENDA BASE QUE NO PUEDE FALTAR EN UN CLÓSET BIEN PENSADO.',
+    119000, undefined,
+    ['photo-1564584217132-2271feaeb3c5', 'photo-1554568218-0f1715e72254'],
+    ['BLUSA', 'BLANCO', 'SEDA', 'OFICINA', 'BÁSICO'],
+    'ROPA', ['BLANCO', 'NEGRO', 'ROSA'], 18, { featured: true }, 145, 4.7),
+
+  P('FK-BLU-002', 'BLUSA ROSA CON LAZO', 'BLUSAS', 'MANGA CORTA',
+    'BLUSA EN CREPÉ ROSA CON LAZO AL CUELLO Y MANGA CORTA.',
+    'BLUSA EN CREPÉ CON LAZO DECORATIVO AL CUELLO Y MANGA CORTA ABULLONADA. EL ROSA FIRMA DE FASHION KAT EN UNA PIEZA FÁCIL DE COMBINAR.',
+    98000, 129000,
+    ['photo-1568252542512-9fe8fe9c87bb', 'photo-1492707892479-7bc8d5a4ee93'],
+    ['BLUSA', 'ROSA', 'LAZO', 'FEMENINA'],
+    'ROPA', ['ROSA', 'BLANCO'], 16, { onSale: true, isNew: true }, 96, 4.5),
+
+  P('FK-BLU-003', 'CAMISA OVERSIZE NEGRA', 'BLUSAS', 'OVERSIZE',
+    'CAMISA OVERSIZE EN POPELINA CON HOMBRO CAÍDO.',
+    'CAMISA DE CORTE OVERSIZE EN POPELINA DE ALGODÓN CON HOMBRO CAÍDO Y BOTONES MATE. ÚSALA ABIERTA SOBRE UN TOP O CERRADA CON CINTURÓN.',
+    109000, undefined,
+    ['photo-1594633312681-425c7b97ccd1', 'photo-1485968579580-b6d095142e6e'],
+    ['CAMISA', 'NEGRO', 'OVERSIZE', 'CASUAL'],
+    'ROPA', ['NEGRO', 'BLANCO', 'GRIS'], 14, {}, 73, 4.4),
+
+  P('FK-BLU-004', 'TOP CORSÉ GRIS PERLA', 'BLUSAS', 'TOP',
+    'TOP TIPO CORSÉ CON VARILLAS Y CIERRE POSTERIOR.',
+    'TOP TIPO CORSÉ CON VARILLAS INTERNAS, COPAS ESTRUCTURADAS Y CIERRE INVISIBLE POSTERIOR. COMBÍNALO CON JEAN O FALDA MIDI PARA UN CONTRASTE PERFECTO.',
+    115000, 149000,
+    ['photo-1515372039744-b8f02a3ae446', 'photo-1469334031218-e382a71b716b'],
+    ['TOP', 'CORSÉ', 'GRIS', 'NOCHE'],
+    'ROPA', ['GRIS', 'NEGRO'], 9, { onSale: true }, 52, 4.6),
+
+  P('FK-BLU-005', 'BODY MANGA LARGA NEGRO', 'BLUSAS', 'BODY',
+    'BODY EN TEJIDO ELÁSTICO CON CUELLO ALTO Y BROCHES.',
+    'BODY EN TEJIDO ELÁSTICO DE ALTA RECUPERACIÓN, CUELLO ALTO Y CIERRE INFERIOR CON BROCHES. LA BASE PERFECTA PARA CUALQUIER LOOK ESTRUCTURADO.',
+    89000, undefined,
+    ['photo-1524504388940-b1c1722653e1', 'photo-1539109136881-3be0616acf4b'],
+    ['BODY', 'NEGRO', 'BÁSICO'],
+    'ROPA', ['NEGRO', 'BLANCO'], 20, {}, 110, 4.5),
+
+  // ---------------- PANTALONES ----------------
+  P('FK-PAN-001', 'JEAN WIDE LEG TIRO ALTO', 'PANTALONES', 'JEAN',
+    'JEAN DE PIERNA ANCHA EN DENIM RÍGIDO CON TIRO ALTO.',
+    'JEAN DE PIERNA ANCHA EN DENIM RÍGIDO DE 12 ONZAS CON TIRO ALTO Y BOTA AMPLIA. ESTILIZA LA PIERNA Y ACOMPAÑA TANTO TENIS COMO TACÓN.',
+    149000, 189000,
+    ['photo-1541099649105-f69ad21f3246', 'photo-1624378439575-d8705ad7ae80'],
+    ['JEAN', 'DENIM', 'WIDE LEG', 'TIRO ALTO'],
+    'ROPA', ['AZUL', 'NEGRO'], 13, { featured: true, onSale: true }, 168, 4.7),
+
+  P('FK-PAN-002', 'PANTALÓN PALAZZO NEGRO', 'PANTALONES', 'PALAZZO',
+    'PANTALÓN PALAZZO EN CREPÉ CON PRETINA ELÁSTICA.',
+    'PANTALÓN PALAZZO EN CREPÉ CON CAÍDA FLUIDA Y PRETINA ELÁSTICA INTERNA. COMODIDAD TOTAL CON UNA SILUETA MUY ELEGANTE.',
+    129000, undefined,
+    ['photo-1475178626620-a4d074967452', 'photo-1582418702059-97ebafb35d09'],
+    ['PANTALÓN', 'NEGRO', 'PALAZZO', 'OFICINA'],
+    'ROPA', ['NEGRO', 'BEIGE'], 15, { featured: true }, 121, 4.6),
+
+  P('FK-PAN-003', 'JEAN SKINNY GRIS', 'PANTALONES', 'JEAN',
+    'JEAN SKINNY EN DENIM ELÁSTICO DE ALTA RECUPERACIÓN.',
+    'JEAN SKINNY EN DENIM ELÁSTICO CON ALTA RECUPERACIÓN, TIRO MEDIO Y COSTURAS REFORZADAS. UN CLÁSICO QUE SE AJUSTA SIN APRETAR.',
+    139000, 165000,
+    ['photo-1582418702059-97ebafb35d09', 'photo-1541099649105-f69ad21f3246'],
+    ['JEAN', 'GRIS', 'SKINNY'],
+    'ROPA', ['GRIS', 'NEGRO', 'AZUL'], 11, { onSale: true }, 94, 4.2),
+
+  P('FK-PAN-004', 'PANTALÓN SASTRE BEIGE', 'PANTALONES', 'SASTRE',
+    'PANTALÓN SASTRE DE CORTE RECTO CON PINZAS FRONTALES.',
+    'PANTALÓN SASTRE DE CORTE RECTO CON PINZAS FRONTALES, BOLSILLOS LATERALES Y FORRO PARCIAL. IDEAL PARA CONSTRUIR UN LOOK DE OFICINA CONTEMPORÁNEO.',
+    145000, undefined,
+    ['photo-1552374196-c4e7ffc6e126', 'photo-1475178626620-a4d074967452'],
+    ['PANTALÓN', 'BEIGE', 'SASTRE', 'OFICINA'],
+    'ROPA', ['BEIGE', 'NEGRO'], 12, { isNew: true }, 38, 4.5),
+
+  // ---------------- CHAQUETAS ----------------
+  P('FK-CHA-001', 'BLAZER NEGRO ESTRUCTURADO', 'CHAQUETAS', 'BLAZER',
+    'BLAZER ESTRUCTURADO CON HOMBRERAS Y FORRO INTERIOR.',
+    'BLAZER ESTRUCTURADO CON HOMBRERAS SUAVES, SOLAPA CLÁSICA Y FORRO INTERIOR COMPLETO. LA PRENDA QUE TRANSFORMA CUALQUIER CONJUNTO EN UN LOOK PROFESIONAL.',
+    239000, 289000,
+    ['photo-1551028719-00167b16eac5', 'photo-1591047139829-d91aecb6caea'],
+    ['BLAZER', 'NEGRO', 'OFICINA', 'ESTRUCTURADO'],
+    'ROPA', ['NEGRO', 'BEIGE'], 9, { featured: true, onSale: true }, 87, 4.8),
+
+  P('FK-CHA-002', 'CHAQUETA DE CUERO SINTÉTICO', 'CHAQUETAS', 'BIKER',
+    'CHAQUETA BIKER EN CUERO SINTÉTICO CON CIERRES METÁLICOS.',
+    'CHAQUETA BIKER EN CUERO SINTÉTICO DE ALTA CALIDAD CON CIERRES METÁLICOS, SOLAPAS ASIMÉTRICAS Y FORRO INTERIOR. ACTITUD PURA EN UNA SOLA PIEZA.',
+    219000, undefined,
+    ['photo-1591047139829-d91aecb6caea', 'photo-1434389677669-e08b4cac3105'],
+    ['CHAQUETA', 'CUERO', 'NEGRO', 'BIKER'],
+    'ROPA', ['NEGRO', 'VINOTINTO'], 10, { featured: true }, 76, 4.7),
+
+  P('FK-CHA-003', 'CHAQUETA DENIM OVERSIZE', 'CHAQUETAS', 'DENIM',
+    'CHAQUETA DENIM DE CORTE OVERSIZE CON BOLSILLOS FRONTALES.',
+    'CHAQUETA DENIM DE CORTE OVERSIZE CON BOTONES METÁLICOS, BOLSILLOS FRONTALES Y LAVADO MEDIO. UN BÁSICO ATEMPORAL PARA TODO EL AÑO.',
+    169000, 199000,
+    ['photo-1434389677669-e08b4cac3105', 'photo-1551028719-00167b16eac5'],
+    ['CHAQUETA', 'DENIM', 'AZUL', 'OVERSIZE'],
+    'ROPA', ['AZUL', 'NEGRO'], 12, { onSale: true }, 63, 4.4),
+
+  P('FK-CHA-004', 'ABRIGO LARGO GRIS', 'CHAQUETAS', 'ABRIGO',
+    'ABRIGO LARGO EN PAÑO CON CINTURÓN A LA CINTURA.',
+    'ABRIGO LARGO EN PAÑO DE ALTA DENSIDAD CON CINTURÓN A LA CINTURA, BOLSILLOS OCULTOS Y FORRO SATINADO. ELEGANCIA PARA CLIMAS FRÍOS.',
+    279000, undefined,
+    ['photo-1490481651871-ab68de25d43d', 'photo-1483985988355-763728e1935b'],
+    ['ABRIGO', 'GRIS', 'INVIERNO', 'LARGO'],
+    'ROPA', ['GRIS', 'NEGRO', 'BEIGE'], 7, { isNew: true }, 29, 4.6),
+
+  // ---------------- CONJUNTOS ----------------
+  P('FK-CON-001', 'CONJUNTO BLAZER Y SHORT NEGRO', 'CONJUNTOS', 'FORMAL',
+    'CONJUNTO DE DOS PIEZAS: BLAZER ENTALLADO Y SHORT DE TIRO ALTO.',
+    'CONJUNTO DE DOS PIEZAS COMPUESTO POR BLAZER ENTALLADO CON BOTÓN FORRADO Y SHORT DE TIRO ALTO CON PINZAS. UNA APUESTA SEGURA PARA EVENTOS DE DÍA Y NOCHE.',
+    269000, 329000,
+    ['photo-1487222477894-8943e31ef7b2', 'photo-1552374196-c4e7ffc6e126'],
+    ['CONJUNTO', 'NEGRO', 'BLAZER', 'FORMAL'],
+    'ROPA', ['NEGRO', 'BLANCO'], 8, { featured: true, onSale: true }, 71, 4.8),
+
+  P('FK-CON-002', 'CONJUNTO CROP Y PANTALÓN ROSA', 'CONJUNTOS', 'CASUAL',
+    'CONJUNTO EN PUNTO SUAVE CON TOP CROP Y PANTALÓN AMPLIO.',
+    'CONJUNTO EN PUNTO SUAVE COMPUESTO POR TOP CROP DE MANGA CORTA Y PANTALÓN AMPLIO CON PRETINA ELÁSTICA. COMODIDAD Y ESTILO EN EL MISMO LOOK.',
+    189000, undefined,
+    ['photo-1618354691373-d851c5c3a990', 'photo-1490114538077-0a7f8cb49891'],
+    ['CONJUNTO', 'ROSA', 'CASUAL', 'PUNTO'],
+    'ROPA', ['ROSA', 'GRIS'], 11, { isNew: true, featured: true }, 54, 4.5),
+
+  P('FK-CON-003', 'CONJUNTO DEPORTIVO GRIS', 'CONJUNTOS', 'DEPORTIVO',
+    'CONJUNTO DEPORTIVO EN FELPA CON BUZO Y JOGGER.',
+    'CONJUNTO DEPORTIVO EN FELPA PERCHADA CON BUZO DE CAPUCHA Y JOGGER CON PUÑOS. SUAVE POR DENTRO, IMPECABLE POR FUERA.',
+    179000, 219000,
+    ['photo-1518310383802-640c2de311b2', 'photo-1490114538077-0a7f8cb49891'],
+    ['CONJUNTO', 'GRIS', 'DEPORTIVO', 'FELPA'],
+    'ROPA', ['GRIS', 'NEGRO', 'ROSA'], 13, { onSale: true }, 82, 4.6),
+
+  P('FK-CON-004', 'CONJUNTO SATINADO VINOTINTO', 'CONJUNTOS', 'NOCHE',
+    'CONJUNTO SATINADO DE CAMISA Y PANTALÓN FLUIDO.',
+    'CONJUNTO SATINADO COMPUESTO POR CAMISA DE MANGA LARGA Y PANTALÓN FLUIDO CON PRETINA ELÁSTICA. BRILLO SUTIL PARA LAS NOCHES ESPECIALES.',
+    229000, undefined,
+    ['photo-1490114538077-0a7f8cb49891', 'photo-1487222477894-8943e31ef7b2'],
+    ['CONJUNTO', 'VINOTINTO', 'SATÍN', 'NOCHE'],
+    'ROPA', ['VINOTINTO', 'NEGRO'], 9, {}, 44, 4.4),
+
+  // ---------------- FALDAS ----------------
+  P('FK-FAL-001', 'FALDA MIDI PLISADA NEGRA', 'FALDAS', 'MIDI',
+    'FALDA MIDI PLISADA CON PRETINA ELÁSTICA Y CAÍDA FLUIDA.',
+    'FALDA MIDI PLISADA EN TEJIDO LIVIANO CON PRETINA ELÁSTICA INTERNA Y FORRO. EL MOVIMIENTO DEL PLISADO APORTA UN AIRE MUY FEMENINO.',
+    119000, 149000,
+    ['photo-1583496661160-fb5886a0aaaa', 'photo-1469334031218-e382a71b716b'],
+    ['FALDA', 'NEGRO', 'PLISADA', 'MIDI'],
+    'ROPA', ['NEGRO', 'GRIS'], 14, { onSale: true }, 67, 4.5),
+
+  P('FK-FAL-002', 'FALDA DENIM CORTA', 'FALDAS', 'CORTA',
+    'FALDA CORTA EN DENIM CON BOTONES FRONTALES.',
+    'FALDA CORTA EN DENIM RÍGIDO CON BOTONES FRONTALES, BOLSILLOS TRASEROS Y DOBLADILLO DESHILACHADO. UN CLÁSICO JUVENIL.',
+    99000, undefined,
+    ['photo-1624378439575-d8705ad7ae80', 'photo-1541099649105-f69ad21f3246'],
+    ['FALDA', 'DENIM', 'CORTA', 'AZUL'],
+    'ROPA', ['AZUL', 'NEGRO'], 16, {}, 58, 4.3),
+
+  P('FK-FAL-003', 'FALDA LÁPIZ ROSA', 'FALDAS', 'LÁPIZ',
+    'FALDA LÁPIZ EN CREPÉ CON ABERTURA POSTERIOR.',
+    'FALDA LÁPIZ EN CREPÉ ESTRUCTURADO CON ABERTURA POSTERIOR Y CIERRE INVISIBLE. UNA SILUETA DEPURADA PARA LA OFICINA.',
+    109000, 139000,
+    ['photo-1469334031218-e382a71b716b', 'photo-1583496661160-fb5886a0aaaa'],
+    ['FALDA', 'ROSA', 'LÁPIZ', 'OFICINA'],
+    'ROPA', ['ROSA', 'NEGRO', 'BEIGE'], 10, { onSale: true, isNew: true }, 35, 4.4),
+
+  // ---------------- ZAPATOS ----------------
+  P('FK-ZAP-001', 'TACÓN STILETTO NEGRO', 'ZAPATOS', 'TACÓN',
+    'STILETTO DE 9 CM CON PLANTILLA ACOLCHADA.',
+    'STILETTO DE 9 CENTÍMETROS EN MATERIAL SINTÉTICO MATE CON PLANTILLA ACOLCHADA Y SUELA ANTIDESLIZANTE. ELEGANCIA QUE SÍ SE PUEDE CAMINAR.',
+    179000, 219000,
+    ['photo-1543163521-1bf539c55dd2', 'photo-1518049362265-d5b2a6467637'],
+    ['ZAPATOS', 'TACÓN', 'NEGRO', 'STILETTO'],
+    'CALZADO', ['NEGRO', 'ROSA'], 8, { featured: true, onSale: true }, 103, 4.6),
+
+  P('FK-ZAP-002', 'TENIS BLANCOS MINIMALISTAS', 'ZAPATOS', 'TENIS',
+    'TENIS BLANCOS DE CAÑA BAJA CON SUELA DE GOMA.',
+    'TENIS DE CAÑA BAJA EN MATERIAL SINTÉTICO BLANCO CON SUELA DE GOMA Y PLANTILLA REMOVIBLE. EL COMPAÑERO PERFECTO DEL DÍA A DÍA.',
+    189000, undefined,
+    ['photo-1549298916-b41d501d3772', 'photo-1600185365483-26d7a4cc7519'],
+    ['ZAPATOS', 'TENIS', 'BLANCO', 'CASUAL'],
+    'CALZADO', ['BLANCO', 'ROSA'], 12, { featured: true }, 156, 4.7),
+
+  P('FK-ZAP-003', 'BOTA ALTA NEGRA', 'ZAPATOS', 'BOTA',
+    'BOTA ALTA CON CIERRE LATERAL Y TACÓN BLOQUE.',
+    'BOTA ALTA CON CAÑA AJUSTADA, CIERRE LATERAL Y TACÓN BLOQUE DE 6 CENTÍMETROS. IDEAL PARA COMBINAR CON FALDAS Y VESTIDOS.',
+    259000, 299000,
+    ['photo-1460353581641-37baddab0fa2', 'photo-1543163521-1bf539c55dd2'],
+    ['ZAPATOS', 'BOTA', 'NEGRO', 'INVIERNO'],
+    'CALZADO', ['NEGRO', 'BEIGE'], 7, { onSale: true }, 48, 4.5),
+
+  P('FK-ZAP-004', 'SANDALIA ROSA DE TIRAS', 'ZAPATOS', 'SANDALIA',
+    'SANDALIA DE TIRAS CON TACÓN MEDIO Y HEBILLA.',
+    'SANDALIA DE TIRAS FINAS CON TACÓN MEDIO DE 7 CENTÍMETROS Y CIERRE DE HEBILLA AJUSTABLE. UN DETALLE ROSA QUE ILUMINA CUALQUIER LOOK.',
+    149000, undefined,
+    ['photo-1509319117193-57bab727e09d', 'photo-1502716119720-b23a93e5fe1b'],
+    ['ZAPATOS', 'SANDALIA', 'ROSA', 'VERANO'],
+    'CALZADO', ['ROSA', 'NEGRO', 'BLANCO'], 9, { isNew: true }, 39, 4.4),
+
+  P('FK-ZAP-005', 'BALETA NEGRA CLÁSICA', 'ZAPATOS', 'BALETA',
+    'BALETA CLÁSICA CON PUNTA REDONDA Y SUELA FLEXIBLE.',
+    'BALETA CLÁSICA CON PUNTA REDONDA, SUELA FLEXIBLE Y PLANTILLA ACOLCHADA. COMODIDAD ABSOLUTA SIN RENUNCIAR AL ESTILO.',
+    119000, 145000,
+    ['photo-1518049362265-d5b2a6467637', 'photo-1509319117193-57bab727e09d'],
+    ['ZAPATOS', 'BALETA', 'NEGRO', 'CÓMODO'],
+    'CALZADO', ['NEGRO', 'BEIGE'], 14, { onSale: true }, 91, 4.3),
+
+  // ---------------- BOLSOS ----------------
+  P('FK-BOL-001', 'BOLSO TOTE NEGRO PREMIUM', 'BOLSOS', 'TOTE',
+    'BOLSO TOTE AMPLIO CON ASAS REFORZADAS Y BOLSILLO INTERNO.',
+    'BOLSO TOTE DE GRAN CAPACIDAD EN MATERIAL SINTÉTICO PREMIUM CON ASAS REFORZADAS, BOLSILLO INTERNO CON CIERRE Y BASE PROTEGIDA. CABE PORTÁTIL DE 14 PULGADAS.',
+    199000, 249000,
+    ['photo-1584917865442-de89df76afd3', 'photo-1548036328-c9fa89d128fa'],
+    ['BOLSO', 'TOTE', 'NEGRO', 'TRABAJO'],
+    'UNICA', ['NEGRO', 'BEIGE'], 20, { featured: true, onSale: true }, 118, 4.8),
+
+  P('FK-BOL-002', 'BOLSO BANDOLERA ROSA', 'BOLSOS', 'BANDOLERA',
+    'BANDOLERA COMPACTA CON CADENA METÁLICA AJUSTABLE.',
+    'BANDOLERA COMPACTA CON CADENA METÁLICA AJUSTABLE Y CIERRE MAGNÉTICO. EL TAMAÑO EXACTO PARA CELULAR, LLAVES Y LABIAL.',
+    139000, undefined,
+    ['photo-1591561954557-26941169b49e', 'photo-1566150905458-1bf1fc113f0d'],
+    ['BOLSO', 'BANDOLERA', 'ROSA', 'NOCHE'],
+    'UNICA', ['ROSA', 'NEGRO', 'BLANCO'], 18, { featured: true, isNew: true }, 97, 4.7),
+
+  P('FK-BOL-003', 'MOCHILA URBANA GRIS', 'BOLSOS', 'MOCHILA',
+    'MOCHILA URBANA IMPERMEABLE CON COMPARTIMENTO PARA PORTÁTIL.',
+    'MOCHILA URBANA EN TEJIDO IMPERMEABLE CON COMPARTIMENTO ACOLCHADO PARA PORTÁTIL, BOLSILLO ANTIRROBO Y TIRANTES ERGONÓMICOS.',
+    179000, 209000,
+    ['photo-1548036328-c9fa89d128fa', 'photo-1596755094514-f87e34085b2c'],
+    ['BOLSO', 'MOCHILA', 'GRIS', 'URBANO'],
+    'UNICA', ['GRIS', 'NEGRO'], 15, { onSale: true }, 62, 4.5),
+
+  P('FK-BOL-004', 'CARTERA DE MANO NEGRA', 'BOLSOS', 'CLUTCH',
+    'CLUTCH RÍGIDO CON CIERRE METÁLICO Y CADENA REMOVIBLE.',
+    'CLUTCH RÍGIDO CON ESTRUCTURA INTERNA, CIERRE METÁLICO DORADO Y CADENA REMOVIBLE PARA USARLO COMO BANDOLERA.',
+    129000, undefined,
+    ['photo-1566150905458-1bf1fc113f0d', 'photo-1591561954557-26941169b49e'],
+    ['BOLSO', 'CLUTCH', 'NEGRO', 'FIESTA'],
+    'UNICA', ['NEGRO', 'ROSA'], 16, {}, 45, 4.4),
+
+  // ---------------- ACCESORIOS ----------------
+  P('FK-ACC-001', 'GAFAS DE SOL CAT EYE', 'ACCESORIOS', 'GAFAS',
+    'GAFAS CAT EYE CON PROTECCIÓN UV400 Y ESTUCHE RÍGIDO.',
+    'GAFAS DE SOL CON MONTURA CAT EYE, LENTES POLARIZADOS CON PROTECCIÓN UV400 Y ESTUCHE RÍGIDO INCLUIDO. ESTILO ATEMPORAL.',
+    89000, 119000,
+    ['photo-1511499767150-a48a237f0083', 'photo-1573408301185-9146fe634ad0'],
+    ['ACCESORIOS', 'GAFAS', 'NEGRO', 'VERANO'],
+    'UNICA', ['NEGRO', 'ROSA'], 25, { featured: true, onSale: true }, 134, 4.6),
+
+  P('FK-ACC-002', 'SET DE COLLARES DORADOS', 'ACCESORIOS', 'JOYERÍA',
+    'SET DE TRES COLLARES EN BAÑO DE ORO DE 18 QUILATES.',
+    'SET DE TRES COLLARES DE DIFERENTE LARGO CON BAÑO DE ORO DE 18 QUILATES E HIPOALERGÉNICO. SUPERPONLOS O ÚSALOS POR SEPARADO.',
+    79000, undefined,
+    ['photo-1515562141207-7a88fb7ce338', 'photo-1605100804763-247f67b3557e'],
+    ['ACCESORIOS', 'JOYERÍA', 'COLLAR', 'DORADO'],
+    'UNICA', ['BEIGE'], 30, { featured: true, isNew: true }, 88, 4.7),
+
+  P('FK-ACC-003', 'ARETES ARGOLLA MINIMALISTAS', 'ACCESORIOS', 'JOYERÍA',
+    'ARETES DE ARGOLLA LIVIANOS CON CIERRE SEGURO.',
+    'ARETES DE ARGOLLA EN ACERO INOXIDABLE CON BAÑO DORADO, LIVIANOS Y CON CIERRE SEGURO. NO SE OXIDAN NI PIERDEN COLOR.',
+    49000, 69000,
+    ['photo-1605100804763-247f67b3557e', 'photo-1515562141207-7a88fb7ce338'],
+    ['ACCESORIOS', 'ARETES', 'DORADO', 'MINIMALISTA'],
+    'UNICA', ['BEIGE'], 40, { onSale: true }, 142, 4.5),
+
+  P('FK-ACC-004', 'CINTURÓN NEGRO CON HEBILLA', 'ACCESORIOS', 'CINTURÓN',
+    'CINTURÓN EN CUERO SINTÉTICO CON HEBILLA METÁLICA.',
+    'CINTURÓN EN CUERO SINTÉTICO DE 3 CENTÍMETROS DE ANCHO CON HEBILLA METÁLICA MATE. MARCA LA CINTURA DE CUALQUIER VESTIDO O BLAZER.',
+    59000, undefined,
+    ['photo-1611085583191-a3b181a88401', 'photo-1548036328-c9fa89d128fa'],
+    ['ACCESORIOS', 'CINTURÓN', 'NEGRO'],
+    'UNICA', ['NEGRO', 'BEIGE'], 28, {}, 76, 4.3),
+
+  P('FK-ACC-005', 'PAÑOLETA DE SEDA ROSA', 'ACCESORIOS', 'PAÑOLETA',
+    'PAÑOLETA CUADRADA EN SEDA CON ESTAMPADO EXCLUSIVO.',
+    'PAÑOLETA CUADRADA DE 70 X 70 CENTÍMETROS EN SEDA CON ESTAMPADO EXCLUSIVO DE FASHION KAT. ÚSALA AL CUELLO, EN EL CABELLO O EN EL BOLSO.',
+    69000, 89000,
+    ['photo-1611085583191-a3b181a88401', 'photo-1511499767150-a48a237f0083'],
+    ['ACCESORIOS', 'PAÑOLETA', 'ROSA', 'SEDA'],
+    'UNICA', ['ROSA', 'NEGRO'], 22, { onSale: true, isNew: true }, 51, 4.6),
+
+  P('FK-ACC-006', 'RELOJ MINIMALISTA NEGRO', 'ACCESORIOS', 'RELOJ',
+    'RELOJ ANALÓGICO CON CORREA DE MALLA Y RESISTENCIA AL AGUA.',
+    'RELOJ ANALÓGICO CON CAJA DE 34 MILÍMETROS, CORREA DE MALLA METÁLICA Y RESISTENCIA AL AGUA DE 3 ATM. DISEÑO LIMPIO Y ATEMPORAL.',
+    159000, undefined,
+    ['photo-1573408301185-9146fe634ad0', 'photo-1605100804763-247f67b3557e'],
+    ['ACCESORIOS', 'RELOJ', 'NEGRO', 'MINIMALISTA'],
+    'UNICA', ['NEGRO', 'BEIGE'], 18, {}, 67, 4.5),
+
+  // ---------------- DEPORTIVO ----------------
+  P('FK-DEP-001', 'LEGGING DEPORTIVO TIRO ALTO', 'DEPORTIVO', 'LEGGING',
+    'LEGGING DE COMPRESIÓN CON TIRO ALTO Y TEJIDO OPACO.',
+    'LEGGING DE COMPRESIÓN SUAVE CON TIRO ALTO, TEJIDO OPACO Y BOLSILLO LATERAL PARA CELULAR. PENSADO PARA ENTRENAR Y PARA EL DÍA A DÍA.',
+    109000, 139000,
+    ['photo-1518310383802-640c2de311b2', 'photo-1490114538077-0a7f8cb49891'],
+    ['DEPORTIVO', 'LEGGING', 'NEGRO', 'ENTRENAMIENTO'],
+    'ROPA', ['NEGRO', 'GRIS', 'ROSA'], 17, { featured: true, onSale: true }, 129, 4.7),
+
+  P('FK-DEP-002', 'TOP DEPORTIVO ROSA', 'DEPORTIVO', 'TOP',
+    'TOP DEPORTIVO DE SOPORTE MEDIO CON ESPALDA CRUZADA.',
+    'TOP DEPORTIVO DE SOPORTE MEDIO CON ESPALDA CRUZADA, COPAS REMOVIBLES Y TEJIDO TRANSPIRABLE DE SECADO RÁPIDO.',
+    79000, undefined,
+    ['photo-1490114538077-0a7f8cb49891', 'photo-1518310383802-640c2de311b2'],
+    ['DEPORTIVO', 'TOP', 'ROSA'],
+    'ROPA', ['ROSA', 'NEGRO', 'GRIS'], 19, { isNew: true }, 84, 4.5),
+
+  P('FK-DEP-003', 'BUZO OVERSIZE GRIS', 'DEPORTIVO', 'BUZO',
+    'BUZO OVERSIZE EN FELPA CON CAPUCHA Y BOLSILLO CANGURO.',
+    'BUZO OVERSIZE EN FELPA PERCHADA CON CAPUCHA FORRADA, BOLSILLO CANGURO Y PUÑOS ELÁSTICOS. EL ABRAZO QUE NECESITA TU CLÓSET.',
+    139000, 169000,
+    ['photo-1483985988355-763728e1935b', 'photo-1518310383802-640c2de311b2'],
+    ['DEPORTIVO', 'BUZO', 'GRIS', 'OVERSIZE'],
+    'ROPA', ['GRIS', 'NEGRO', 'ROSA'], 15, { onSale: true }, 95, 4.6),
+
+  P('FK-DEP-004', 'SHORT DEPORTIVO NEGRO', 'DEPORTIVO', 'SHORT',
+    'SHORT DEPORTIVO CON PRETINA ANCHA Y TEJIDO ELÁSTICO.',
+    'SHORT DEPORTIVO CON PRETINA ANCHA QUE NO SE ENROLLA, TEJIDO ELÁSTICO EN CUATRO DIRECCIONES Y COSTURAS PLANAS ANTIROCE.',
+    69000, undefined,
+    ['photo-1518310383802-640c2de311b2', 'photo-1483985988355-763728e1935b'],
+    ['DEPORTIVO', 'SHORT', 'NEGRO'],
+    'ROPA', ['NEGRO', 'GRIS'], 21, {}, 58, 4.2),
+
+  // ---------------- EXTRAS ----------------
+  P('FK-VES-006', 'VESTIDO ROSA DE CÓCTEL', 'VESTIDOS', 'CÓCTEL',
+    'VESTIDO DE CÓCTEL CON ESCOTE CORAZÓN Y FALDA GLOBO.',
+    'VESTIDO DE CÓCTEL EN TEJIDO ESTRUCTURADO CON ESCOTE CORAZÓN, FALDA GLOBO Y CIERRE INVISIBLE. EL PROTAGONISTA DE CUALQUIER CELEBRACIÓN.',
+    219000, 269000,
+    ['photo-1566174053879-31528523f8ae', 'photo-1595777457583-95e059d581b8'],
+    ['VESTIDO', 'ROSA', 'CÓCTEL', 'FIESTA'],
+    'ROPA', ['ROSA', 'NEGRO'], 8, { featured: true, onSale: true, isNew: true }, 73, 4.8),
+
+  P('FK-BLU-006', 'BLUSA CROP TEJIDA BEIGE', 'BLUSAS', 'CROP',
+    'BLUSA CROP EN PUNTO CON MANGA ABULLONADA.',
+    'BLUSA CROP EN PUNTO FINO CON MANGA ABULLONADA Y ESCOTE CUADRADO. COMBÍNALA CON JEAN DE TIRO ALTO PARA UN LOOK EQUILIBRADO.',
+    89000, undefined,
+    ['photo-1554568218-0f1715e72254', 'photo-1568252542512-9fe8fe9c87bb'],
+    ['BLUSA', 'CROP', 'BEIGE', 'PUNTO'],
+    'ROPA', ['BEIGE', 'ROSA', 'BLANCO'], 16, { isNew: true }, 42, 4.4),
+
+  P('FK-ZAP-006', 'MOCASÍN NEGRO CON HERRAJE', 'ZAPATOS', 'MOCASÍN',
+    'MOCASÍN CLÁSICO CON HERRAJE METÁLICO Y SUELA TRACK.',
+    'MOCASÍN CLÁSICO CON HERRAJE METÁLICO DORADO, SUELA TRACK DE 3 CENTÍMETROS Y PLANTILLA ACOLCHADA. COMODIDAD CON AIRE SOFISTICADO.',
+    199000, 239000,
+    ['photo-1502716119720-b23a93e5fe1b', 'photo-1460353581641-37baddab0fa2'],
+    ['ZAPATOS', 'MOCASÍN', 'NEGRO', 'OFICINA'],
+    'CALZADO', ['NEGRO', 'BEIGE'], 10, { onSale: true }, 56, 4.5),
+
+  P('FK-PAN-005', 'JOGGER SATINADO NEGRO', 'PANTALONES', 'JOGGER',
+    'JOGGER SATINADO CON PRETINA ELÁSTICA Y PUÑOS.',
+    'JOGGER EN TEJIDO SATINADO CON PRETINA ELÁSTICA, CORDÓN INTERNO Y PUÑOS AJUSTADOS. LA COMODIDAD DE UN DEPORTIVO CON ACABADO DE NOCHE.',
+    119000, 149000,
+    ['photo-1475178626620-a4d074967452', 'photo-1552374196-c4e7ffc6e126'],
+    ['PANTALÓN', 'JOGGER', 'NEGRO', 'SATÍN'],
+    'ROPA', ['NEGRO', 'VINOTINTO'], 13, { onSale: true }, 49, 4.3),
+];
+
+export const CATALOGS = [
+  {
+    name: 'NUEVA COLECCIÓN',
+    slug: 'nueva-coleccion',
+    description: 'LO MÁS RECIENTE QUE ACABA DE LLEGAR A FASHION KAT.',
+    cover: U('photo-1490481651871-ab68de25d43d'),
+    match: (p: SeedProduct) => Boolean(p.isNew),
+  },
+  {
+    name: 'VESTIDOS',
+    slug: 'catalogo-vestidos',
+    description: 'TODA NUESTRA SELECCIÓN DE VESTIDOS EN UN SOLO LUGAR.',
+    cover: U('photo-1595777457583-95e059d581b8'),
+    match: (p: SeedProduct) => p.category === 'VESTIDOS',
+  },
+  {
+    name: 'CONJUNTOS',
+    slug: 'catalogo-conjuntos',
+    description: 'CONJUNTOS COORDINADOS PARA RESOLVER TU LOOK EN UN MINUTO.',
+    cover: U('photo-1487222477894-8943e31ef7b2'),
+    match: (p: SeedProduct) => p.category === 'CONJUNTOS',
+  },
+  {
+    name: 'CASUAL',
+    slug: 'casual',
+    description: 'PRENDAS CÓMODAS PARA EL DÍA A DÍA SIN PERDER EL ESTILO.',
+    cover: U('photo-1483985988355-763728e1935b'),
+    match: (p: SeedProduct) =>
+      p.tags.includes('CASUAL') || p.category === 'DEPORTIVO' || p.category === 'PANTALONES',
+  },
+  {
+    name: 'ZAPATOS',
+    slug: 'catalogo-zapatos',
+    description: 'TACONES, TENIS, BOTAS Y BALETAS PARA CADA PLAN.',
+    cover: U('photo-1543163521-1bf539c55dd2'),
+    match: (p: SeedProduct) => p.category === 'ZAPATOS',
+  },
+  {
+    name: 'ACCESORIOS',
+    slug: 'catalogo-accesorios',
+    description: 'LOS DETALLES QUE COMPLETAN TU LOOK.',
+    cover: U('photo-1611085583191-a3b181a88401'),
+    match: (p: SeedProduct) => p.category === 'ACCESORIOS' || p.category === 'BOLSOS',
+  },
+  {
+    name: 'COLECCIÓN ROSA',
+    slug: 'coleccion-rosa',
+    description: 'EL COLOR FIRMA DE FASHION KAT EN TODAS SUS VERSIONES.',
+    cover: U('photo-1572804013309-59a88b7e92f1'),
+    match: (p: SeedProduct) => p.colors.includes('ROSA'),
+  },
+  {
+    name: 'COLECCIÓN NEGRA',
+    slug: 'coleccion-negra',
+    description: 'EL NEGRO SIEMPRE GANA. NUESTRA SELECCIÓN ATEMPORAL.',
+    cover: U('photo-1485968579580-b6d095142e6e'),
+    match: (p: SeedProduct) => p.colors.includes('NEGRO'),
+  },
+  {
+    name: 'OFERTAS',
+    slug: 'catalogo-ofertas',
+    description: 'PRECIOS ESPECIALES POR TIEMPO LIMITADO.',
+    cover: U('photo-1483985988355-763728e1935b'),
+    match: (p: SeedProduct) => Boolean(p.onSale),
+  },
+];
+
+export const BANNERS = [
+  {
+    title: 'MODA QUE HABLA POR TI',
+    subtitle: 'DESCUBRE LAS ÚLTIMAS TENDENCIAS Y CREA UN ESTILO QUE SEA COMPLETAMENTE TUYO.',
+    imageUrl: U('photo-1490481651871-ab68de25d43d'),
+    buttonText: 'COMPRAR AHORA',
+    link: '/productos',
+    placement: 'HERO',
+    position: 0,
+  },
+  {
+    title: 'NUEVA COLECCIÓN DISPONIBLE',
+    subtitle: 'PRENDAS RECIÉN LLEGADAS PARA RENOVAR TU CLÓSET.',
+    imageUrl: U('photo-1483985988355-763728e1935b'),
+    buttonText: 'VER CATÁLOGO',
+    link: '/catalogo/nueva-coleccion',
+    placement: 'HERO',
+    position: 1,
+  },
+  {
+    title: 'HASTA 30% DE DESCUENTO',
+    subtitle: 'OFERTAS DE LA SEMANA EN PRENDAS SELECCIONADAS.',
+    imageUrl: U('photo-1441986300917-64674bd600d8'),
+    buttonText: 'VER OFERTAS',
+    link: '/ofertas',
+    placement: 'PROMO',
+    position: 0,
+  },
+];
+
+export const REVIEW_COMMENTS = [
+  'LA TELA ES HERMOSA Y LA TALLA QUEDÓ PERFECTA. VOLVERÉ A COMPRAR SIN DUDA.',
+  'LLEGÓ ANTES DE LO ESPERADO Y MUY BIEN EMPACADO. ME ENCANTÓ.',
+  'LA CALIDAD ES MUCHO MEJOR DE LO QUE ESPERABA POR EL PRECIO.',
+  'ME QUEDÓ UN POCO GRANDE, RECOMIENDO PEDIR UNA TALLA MENOS. AUN ASÍ ME GUSTÓ.',
+  'EL COLOR ES EXACTAMENTE COMO SE VE EN LAS FOTOS. MUY FELIZ CON MI COMPRA.',
+  'EXCELENTE ATENCIÓN POR WHATSAPP Y EL PRODUCTO ES PRECIOSO.',
+  'LO USÉ PARA UN EVENTO Y RECIBÍ MUCHOS CUMPLIDOS. TOTALMENTE RECOMENDADO.',
+  'MUY CÓMODO PARA USAR TODO EL DÍA. YA PEDÍ OTRO EN OTRO COLOR.',
+  'EL ACABADO ES IMPECABLE, SE NOTA QUE ES DE BUENA CALIDAD.',
+  'CUMPLIÓ MIS EXPECTATIVAS. EL ENVÍO A MEDELLÍN FUE MUY RÁPIDO.',
+  'ME FASCINÓ EL DISEÑO, ES DIFERENTE A TODO LO QUE ENCUENTRO EN OTRAS TIENDAS.',
+  'BUENA COMPRA, AUNQUE ME HUBIERA GUSTADO MÁS VARIEDAD DE TALLAS.',
+];
+
+export const CUSTOMERS = [
+  { firstName: 'VALENTINA', lastName: 'RESTREPO', email: 'valentina.restrepo@correo.co', phone: '3001234567', city: 'MEDELLÍN', state: 'ANTIOQUIA' },
+  { firstName: 'MARIANA', lastName: 'GÓMEZ', email: 'mariana.gomez@correo.co', phone: '3012345678', city: 'BOGOTÁ', state: 'BOGOTÁ D.C.' },
+  { firstName: 'CAMILA', lastName: 'ÁLVAREZ', email: 'camila.alvarez@correo.co', phone: '3023456789', city: 'CALI', state: 'VALLE DEL CAUCA' },
+  { firstName: 'SOFÍA', lastName: 'MARTÍNEZ', email: 'sofia.martinez@correo.co', phone: '3034567890', city: 'BARRANQUILLA', state: 'ATLÁNTICO' },
+  { firstName: 'LAURA', lastName: 'PÉREZ', email: 'laura.perez@correo.co', phone: '3045678901', city: 'BUCARAMANGA', state: 'SANTANDER' },
+  { firstName: 'ISABELLA', lastName: 'RAMÍREZ', email: 'isabella.ramirez@correo.co', phone: '3056789012', city: 'PEREIRA', state: 'RISARALDA' },
+  { firstName: 'DANIELA', lastName: 'CASTAÑO', email: 'daniela.castano@correo.co', phone: '3067890123', city: 'CARTAGENA', state: 'BOLÍVAR' },
+  { firstName: 'ANDREA', lastName: 'MORENO', email: 'andrea.moreno@correo.co', phone: '3078901234', city: 'MANIZALES', state: 'CALDAS' },
+  { firstName: 'JULIANA', lastName: 'VARGAS', email: 'juliana.vargas@correo.co', phone: '3089012345', city: 'ENVIGADO', state: 'ANTIOQUIA' },
+  { firstName: 'PAULA', lastName: 'OSPINA', email: 'paula.ospina@correo.co', phone: '3090123456', city: 'SANTA MARTA', state: 'MAGDALENA' },
+];
+
+export type SeedCoupon = {
+  code: string;
+  description: string;
+  discountType: 'PORCENTAJE' | 'VALOR_FIJO';
+  discountValue: number;
+  minPurchase: number;
+  maxDiscount: number | null;
+  maxUses: number;
+  maxUsesPerUser: number;
+  categorySlug?: string;
+  expired?: boolean;
+};
+
+export const COUPONS: SeedCoupon[] = [
+  { code: 'FASHION20', description: '20% DE DESCUENTO EN TODA LA TIENDA.', discountType: 'PORCENTAJE', discountValue: 20, minPurchase: 150000, maxDiscount: 80000, maxUses: 200, maxUsesPerUser: 1 },
+  { code: 'BIENVENIDA10', description: '10% DE DESCUENTO EN TU PRIMERA COMPRA.', discountType: 'PORCENTAJE', discountValue: 10, minPurchase: 0, maxDiscount: 50000, maxUses: 1000, maxUsesPerUser: 1 },
+  { code: 'ENVIOGRATIS', description: '$15.000 DE DESCUENTO PARA CUBRIR EL ENVÍO.', discountType: 'VALOR_FIJO', discountValue: 15000, minPurchase: 100000, maxDiscount: null, maxUses: 500, maxUsesPerUser: 2 },
+  { code: 'VESTIDOS15', description: '15% DE DESCUENTO EN VESTIDOS.', discountType: 'PORCENTAJE', discountValue: 15, minPurchase: 0, maxDiscount: 60000, maxUses: 300, maxUsesPerUser: 1, categorySlug: 'vestidos' },
+  { code: 'ROSA25', description: '25% DE DESCUENTO EN LA COLECCIÓN ROSA.', discountType: 'PORCENTAJE', discountValue: 25, minPurchase: 200000, maxDiscount: 120000, maxUses: 100, maxUsesPerUser: 1 },
+  { code: 'KAT50K', description: '$50.000 DE DESCUENTO EN COMPRAS DESDE $300.000.', discountType: 'VALOR_FIJO', discountValue: 50000, minPurchase: 300000, maxDiscount: null, maxUses: 150, maxUsesPerUser: 1 },
+  { code: 'ZAPATOS10', description: '10% DE DESCUENTO EN ZAPATOS.', discountType: 'PORCENTAJE', discountValue: 10, minPurchase: 0, maxDiscount: 40000, maxUses: 400, maxUsesPerUser: 3, categorySlug: 'zapatos' },
+  { code: 'VERANO30', description: '30% DE DESCUENTO — CUPÓN EXPIRADO DE TEMPORADA.', discountType: 'PORCENTAJE', discountValue: 30, minPurchase: 0, maxDiscount: 90000, maxUses: 100, maxUsesPerUser: 1, expired: true },
+];
+
+export const CONTACT_MESSAGES = [
+  { name: 'CAROLINA HENAO', email: 'carolina.henao@correo.co', phone: '3101234567', subject: 'DISPONIBILIDAD DE TALLA', message: 'HOLA, QUISIERA SABER SI EL VESTIDO NEGRO SATINADO MIDI LLEGARÁ EN TALLA XS NUEVAMENTE. GRACIAS.', status: 'NUEVO' },
+  { name: 'LINA TORRES', email: 'lina.torres@correo.co', phone: '3112345678', subject: 'ESTADO DE MI PEDIDO', message: 'BUENAS TARDES, HICE UN PEDIDO HACE TRES DÍAS Y QUISIERA SABER EN QUÉ ESTADO VA. MUCHAS GRACIAS.', status: 'LEIDO' },
+  { name: 'SARA JIMÉNEZ', email: 'sara.jimenez@correo.co', phone: '3123456789', subject: 'CAMBIO DE TALLA', message: 'RECIBÍ MI BLUSA PERO NECESITO CAMBIARLA POR UNA TALLA M. ¿CUÁL ES EL PROCEDIMIENTO?', status: 'RESPONDIDO' },
+  { name: 'NATALIA RUIZ', email: 'natalia.ruiz@correo.co', phone: '3134567890', subject: 'VENTA AL POR MAYOR', message: 'TENGO UNA BOUTIQUE EN PEREIRA Y ME INTERESA COMPRAR AL POR MAYOR. ¿MANEJAN ESA MODALIDAD?', status: 'NUEVO' },
+  { name: 'ÁNGELA DUQUE', email: 'angela.duque@correo.co', phone: '3145678901', subject: 'FELICITACIONES', message: 'SOLO QUERÍA DECIRLES QUE ME ENCANTÓ LA ATENCIÓN Y LA CALIDAD DE LAS PRENDAS. SIGAN ASÍ.', status: 'RESPONDIDO' },
+];
